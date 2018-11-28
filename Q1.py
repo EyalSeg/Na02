@@ -15,7 +15,7 @@ def bisect (func, range_min, range_max, max_delta):
     if y1 * y2 > 0:
         return None
 
-    i = 1
+    i = 0
 
     error = math.fabs(range_max - range_min)
     while error > max_delta:
@@ -38,7 +38,7 @@ def bisect (func, range_min, range_max, max_delta):
 
     z = (range_min + range_max) / 2
     y = func(z)
-    return z, error, y, i
+    return z, error, i
 
 def regula_falsi(func, range_min, range_max, max_delta):
     y1 = func(range_min)
@@ -53,7 +53,7 @@ def regula_falsi(func, range_min, range_max, max_delta):
         return None
 
     error = math.fabs(range_max - range_min)
-    i = 1
+    i = 0
     while error > max_delta:
         secant_zero_arg = find_secant_zero_arg(func, range_min, range_max)
         y = func(secant_zero_arg)
@@ -73,12 +73,12 @@ def regula_falsi(func, range_min, range_max, max_delta):
 
     z = secant_zero_arg
     y = func(z)
-    return z, math.fabs((range_max-range_min))/2, y, i
+    return z, math.fabs((range_max - range_min))/2, i
 
 
 def find_secant_zero_arg(func, x1, x2):
     y1, y2 = func(x1), func(x2)
     return x2 - y2 * (x2 - x1)/(y2 - y1)
 
-print(bisect(f, -3, 3, 0.0001))
-print(regula_falsi(f, -3, 3, 0.0001))
+print(bisect(f, -3, 3, 0.0000000001))
+print(regula_falsi(f, -3, 3, 0.0000000001))
